@@ -85,6 +85,33 @@ const updateCategory = async (req: Request, res: Response) => {
   }
 };
 
+const disableCategory = async (req: Request, res: Response) => {
+  try{
+    const { id } = req.params;
+    const category = await Category.findByIdAndUpdate(
+      id,
+      { isActive: false },
+      { new: true }
+    )
+    if(!category){
+      res.status(404).json({
+        message: "Category not found",
+        error: true
+      });
+      return;
+    }
+    res.status(200).json({
+      message: "Category disabled successfully",
+      data: category,
+      error: false
+    });
+  } catch (error: any){
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 const deleteCategory = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -107,4 +134,4 @@ const deleteCategory = async (req: Request, res: Response) => {
   }
 };
 
-export { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory };
+export { getCategories, getCategoryById, createCategory, updateCategory, disableCategory, deleteCategory };
