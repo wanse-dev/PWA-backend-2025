@@ -112,6 +112,33 @@ const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
+const disableProduct = async (req: Request, res: Response) => {
+  try{
+    const { id } = req.params;
+    const product = await Product.findByIdAndUpdate(
+      id,
+      { isActive: false },
+      { new: true }
+    )
+    if(!product){
+      res.status(404).json({
+        message: "Product not found",
+        error: true
+      });
+      return;
+    }
+    res.status(200).json({
+      message: "Product disabled successfully",
+      data: product,
+      error: false
+    });
+  } catch (error: any){
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -140,4 +167,5 @@ export {
   createProduct, 
   getProductsByCategory,
   updateProduct, 
+  disableProduct,
   deleteProduct };
