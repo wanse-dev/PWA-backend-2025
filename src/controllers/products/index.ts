@@ -82,4 +82,62 @@ const getProductsByCategory = async (req: Request, res: Response) => {
   }
 };
 
-export { getProducts, getProductById, createProduct, getProductsByCategory };
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    if (!product) {
+      res.status(404).json({
+        message: "Product not found",
+        error: true,
+      });
+      return;
+    }
+    res.status(200).json({
+      message: "Updated successfully",
+      data: product,
+      error: false,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
+const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
+    if (!product) {
+      res.status(404).json({
+        message: "Product not found",
+        error: true,
+      });
+      return;
+    }
+    res.status(200).json({
+      message: "Deleted successfully",
+      error: false,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
+export { 
+  getProducts, 
+  getProductById, 
+  createProduct, 
+  getProductsByCategory,
+  updateProduct, 
+  deleteProduct };
