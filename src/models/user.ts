@@ -1,34 +1,47 @@
 import mongoose, { Schema } from "mongoose";
 
+type userSchemaType = {
+  name: string;
+  lastName?: string;
+  birthDate: Date;
+  email: string;
+  isAdmin: boolean;
+  isActive: boolean;
+};
+
 const userSchema = new Schema(
-    {
-        name: {
-            type: String,
-        },
-        lastName: {
-            type: String,
-        },
-        birthDate: {
-            type: Date,
-        },
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        isAdmin: {
-            type: Boolean,
-            default: false,
-        },
-        isActive: {
-            type: Boolean,
-        }
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    {
-        timestamps: true,
-    }
+    lastName: {
+      type: String,
+    },
+    birthDate: {
+      type: Date,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model<userSchemaType>("User", userSchema);
 
 export default User;

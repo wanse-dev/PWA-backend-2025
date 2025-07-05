@@ -1,18 +1,25 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { Product } from "./product";
+import mongoose, { Schema, Types } from "mongoose";
 
-interface Category extends Document {
+type CategorySchemaType = {
   name: string;
-  description: string;
+  description?: string;
   isActive: boolean;
-  products: Product[];
-}
+  products?: Types.ObjectId[];
+};
 
 const CategorySchema = new Schema(
   {
-    name: { type: String },
-    description: { type: String },
-    isActive: { type: Boolean },
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+    },
     products: [{ type: Schema.Types.ObjectId, ref: "Product" }],
   },
   {
@@ -20,6 +27,6 @@ const CategorySchema = new Schema(
   }
 );
 
-const Category = mongoose.model<Category>("Category", CategorySchema);
+const Category = mongoose.model<CategorySchemaType>("Category", CategorySchema);
 
 export default Category;

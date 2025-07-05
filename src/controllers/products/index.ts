@@ -113,26 +113,26 @@ const updateProduct = async (req: Request, res: Response) => {
 };
 
 const enableProduct = async (req: Request, res: Response) => {
-  try{
+  try {
     const { id } = req.params;
     const product = await Product.findByIdAndUpdate(
       id,
       { isActive: true },
       { new: true }
-    )
-    if(!product){
+    );
+    if (!product) {
       res.status(404).json({
         message: "Product not found",
-        error: true
+        error: true,
       });
       return;
     }
     res.status(200).json({
       message: "Product enabled successfully",
       data: product,
-      error: false
+      error: false,
     });
-  } catch (error: any){
+  } catch (error: any) {
     res.status(400).json({
       error: error.message,
     });
@@ -140,26 +140,26 @@ const enableProduct = async (req: Request, res: Response) => {
 };
 
 const disableProduct = async (req: Request, res: Response) => {
-  try{
+  try {
     const { id } = req.params;
     const product = await Product.findByIdAndUpdate(
       id,
       { isActive: false },
       { new: true }
-    )
-    if(!product){
+    );
+    if (!product) {
       res.status(404).json({
         message: "Product not found",
-        error: true
+        error: true,
       });
       return;
     }
     res.status(200).json({
       message: "Product disabled successfully",
       data: product,
-      error: false
+      error: false,
     });
-  } catch (error: any){
+  } catch (error: any) {
     res.status(400).json({
       error: error.message,
     });
@@ -188,12 +188,13 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
-export { 
-  getProducts, 
-  getProductById, 
-  createProduct, 
+export {
+  getProducts,
+  getProductById,
+  createProduct,
   getProductsByCategory,
   updateProduct,
   enableProduct,
   disableProduct,
-  deleteProduct };
+  deleteProduct,
+};

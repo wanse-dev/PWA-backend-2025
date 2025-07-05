@@ -1,19 +1,19 @@
-import express from "express";
-import cors from "cors";
-import routes from "./routes/index";
 import "dotenv/config";
+import routes from "./routes/index";
 import connectDB from "./database";
+import cors from "cors";
+import express from "express";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // if PORT is not set, default to 3000
 
 app.use(cors());
 app.use(express.json());
 
-connectDB();
+connectDB(); // once server starts, connect to the database
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Server working properly!");
 });
 
 app.use("/api", routes);

@@ -1,19 +1,19 @@
 import express from "express";
-import { 
-    getCategories, 
-    getCategoryById, 
-    createCategory,
-    updateCategory,
-    enableCategory,
-    disableCategory,
-    deleteCategory 
+import {
+  createCategory,
+  getCategories,
+  getCategoryById,
+  updateCategory,
+  enableCategory,
+  disableCategory,
+  deleteCategory,
 } from "../../controllers/categories/index";
 
 const router = express.Router();
 
-router.get("/", getCategories);
-router.get("/:id", getCategoryById)
 router.post("/", createCategory);
+router.get("/", getCategories);
+router.get("/:id", getCategoryById);
 router.put("/:id", updateCategory);
 router.patch("/enable/:id", enableCategory);
 router.patch("/disable/:id", disableCategory);

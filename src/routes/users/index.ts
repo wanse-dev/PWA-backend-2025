@@ -1,19 +1,19 @@
 import express from "express";
 import {
   createUser,
-  deleteUser,
-  getUserById,
   getUsers,
+  getUserById,
+  updateUser,
   enableUser,
   disableUser,
-  updateUser
+  deleteUser,
 } from "../../controllers/users/";
 
 const router = express.Router();
 
+router.post("/", createUser);
 router.get("/", getUsers);
 router.get("/:id", getUserById);
-router.post("/", createUser);
 router.put("/:id", updateUser);
 router.patch("/enable/:id", enableUser);
 router.patch("/disable/:id", disableUser);

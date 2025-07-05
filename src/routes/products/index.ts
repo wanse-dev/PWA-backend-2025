@@ -1,19 +1,19 @@
 import express from "express";
 import {
-  getProducts,
   createProduct,
+  getProducts,
   getProductById,
   getProductsByCategory,
   updateProduct,
   enableProduct,
   disableProduct,
-  deleteProduct
+  deleteProduct,
 } from "../../controllers/products/";
 
 const router = express.Router();
 
-router.get("/", getProducts);
 router.post("/", createProduct);
+router.get("/", getProducts);
 router.get("/:id", getProductById);
 router.get("/category/:id", getProductsByCategory);
 router.put("/:id", updateProduct);
