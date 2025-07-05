@@ -34,6 +34,7 @@ const userSchema = new Schema(
     },
     isActive: {
       type: Boolean,
+      default: true,
       required: true,
     },
   },
